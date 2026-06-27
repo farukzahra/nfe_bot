@@ -124,5 +124,16 @@
       "nfe_examples/2.xml",
       "docs/fases-implementacao.md"
     ]
+  },
+  {
+    "hash": "5bee3f1",
+    "type": "feat",
+    "scope": "about",
+    "message": "feat(about): replace v-data-table with clean v-table changelog layout (phase 4.5)",
+    "date": "2026-06-27T23:41:00.000Z",
+    "files": [
+      "frontend/src/views/AboutView.vue",
+      "docs/fases-implementacao.md"
+    ]
   }
 ]
