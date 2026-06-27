@@ -1,5 +1,13 @@
 # Roadmap
 
+## Fase 0 — Fundação
+
+- Estrutura backend (Fastify + TypeScript + Prisma)
+- Estrutura frontend (Vue 3 + Vite + Vuetify)
+- Cadastro e login (email + senha, JWT)
+- Schema do banco com `users` e `user_id` nas tabelas principais
+- Layout base com rotas protegidas
+
 ## Fase 1 — Importação
 
 - Upload de XML
@@ -35,9 +43,9 @@
 
 ## Fase 5 — Expansão
 
+- Multiempresa / tenant (múltiplos usuários por empresa)
 - Integrações com ERP
 - Integração com certificado digital
 - Busca automática de XMLs
 - MCP server opcional
-- Multiempresa
 - Planos pagos

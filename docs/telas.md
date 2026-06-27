@@ -6,14 +6,47 @@ Inventário de todas as telas, rotas, padrões de UI e ações disponíveis.
 
 ## Visão Geral das Rotas
 
-| Rota | Tela |
-|---|---|
-| `/` | Redirect para `/documents` |
-| `/import` | Importação de arquivos |
-| `/documents` | Lista de documentos fiscais |
-| `/documents/:id` | Detalhe de um documento |
-| `/errors` | Erros de importação |
-| `/chat` | Chatbot gerencial |
+| Rota | Tela | Auth |
+|---|---|---|
+| `/login` | Login | Pública |
+| `/register` | Cadastro | Pública |
+| `/` | Redirect para `/documents` | Protegida |
+| `/import` | Importação de arquivos | Protegida |
+| `/documents` | Lista de documentos fiscais | Protegida |
+| `/documents/:id` | Detalhe de um documento | Protegida |
+| `/errors` | Erros de importação | Protegida |
+| `/chat` | Chatbot gerencial | Protegida |
+| `/about` | Sobre / documentação do projeto | Protegida |
+
+Rotas protegidas redirecionam para `/login` se o usuário não estiver autenticado.
+
+---
+
+## 0. Login e Cadastro
+
+**Rotas:** `/login` e `/register`
+**Padrão:** Página centralizada simples
+
+### Login (`/login`)
+
+- Campo email
+- Campo senha
+- Botão entrar
+- Link para cadastro
+
+### Cadastro (`/register`)
+
+- Campo email
+- Campo senha
+- Campo confirmar senha
+- Botão criar conta
+- Link para login
+
+### Layout autenticado
+
+- Menu lateral ou superior com navegação
+- Exibir email do usuário logado
+- Botão sair (logout)
 
 ---
 

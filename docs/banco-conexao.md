@@ -59,6 +59,10 @@ GOOGLE_GENERATIVE_AI_API_KEY=
 # App
 NODE_ENV=development
 PORT=3000
+
+# Auth
+JWT_SECRET=
+JWT_EXPIRES_IN=7d
 ```
 
 ### .gitignore

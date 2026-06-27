@@ -2,16 +2,28 @@
 
 ## Fluxo MVP
 
-O chatbot acessa o backend da aplicação, não diretamente o banco.
+O usuário se autentica, importa documentos e consulta via telas ou chatbot. Todos os dados ficam vinculados ao `user_id`.
+
+```txt
+Frontend (Vue)
+   ↓ JWT
+Backend API (Fastify)
+   ↓ user_id em toda query
+Services internos
+   ↓
+PostgreSQL (via Prisma)
+```
+
+Fluxo do chatbot:
 
 ```txt
 Frontend Chat
-   ↓
+   ↓ JWT
 Backend API (Fastify)
    ↓
 LLM com Tool Calling (Vercel AI SDK)
    ↓
-Services internos
+Services internos (filtrados por user_id)
    ↓
 PostgreSQL (via Prisma)
 ```

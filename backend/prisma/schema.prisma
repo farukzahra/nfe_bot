@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PartyType {
+  issuer
+  recipient
+}
+
+enum DocumentDirection {
+  entrada
+  saida
+}
+
+enum DocumentStatus {
+  autorizada
+  cancelada
+  denegada
+  inutilizada
+}
+
+enum BatchStatus {
+  pending
+  processing
+  completed
+  failed
+}
+
+enum ChatRole {
+  user
+  assistant
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  fiscalDocuments   FiscalDocument[]
+  importBatches     ImportBatch[]
+  chatConversations ChatConversation[]
+
+  @@map("users")
+}
+
+model FiscalDocument {
+  id              String            @id @default(uuid())
+  userId          String            @map("user_id")
+  accessKey       String?           @map("access_key")
+  documentNumber  String?           @map("document_number")
+  series          String?
+  model           String?
+  operationType   String?           @map("operation_type")
+  direction       DocumentDirection?
+  issueDate       DateTime?         @map("issue_date")
+  totalAmount     Decimal?          @map("total_amount") @db.Decimal(15, 2)
+  productsAmount  Decimal?          @map("products_amount") @db.Decimal(15, 2)
+  discountAmount  Decimal?          @map("discount_amount") @db.Decimal(15, 2)
+  freightAmount   Decimal?          @map("freight_amount") @db.Decimal(15, 2)
+  taxAmount       Decimal?          @map("tax_amount") @db.Decimal(15, 2)
+  status          DocumentStatus?
+  rawXml          String?           @map("raw_xml") @db.Text
+  sourceFileName  String?           @map("source_file_name")
+  importedAt      DateTime?         @map("imported_at")
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parties FiscalParty[]
+  items   FiscalItem[]
+  taxes   FiscalTax[]
+
+  @@index([userId])
+  @@map("fiscal_documents")
+}
+
+model FiscalParty {
+  id                String    @id @default(uuid())
+  documentId        String    @map("document_id")
+  partyType         PartyType @map("party_type")
+  documentNumber    String?   @map("document_number")
+  legalName         String?   @map("legal_name")
+  tradeName         String?   @map("trade_name")
+  stateRegistration String?   @map("state_registration")
+  address           String?
+  city              String?
+  state             String?
+  zipCode           String?   @map("zip_code")
+
+  document FiscalDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([documentId])
+  @@map("fiscal_parties")
+}
+
+model FiscalItem {
+  id             String   @id @default(uuid())
+  documentId     String   @map("document_id")
+  productCode    String?  @map("product_code")
+  ean            String?
+  description    String?
+  ncm            String?
+  cfop           String?
+  unit           String?
+  quantity       Decimal? @db.Decimal(15, 4)
+  unitPrice      Decimal? @map("unit_price") @db.Decimal(15, 4)
+  totalPrice     Decimal? @map("total_price") @db.Decimal(15, 2)
+  discountAmount Decimal? @map("discount_amount") @db.Decimal(15, 2)
+  freightAmount  Decimal? @map("freight_amount") @db.Decimal(15, 2)
+  taxAmount      Decimal? @map("tax_amount") @db.Decimal(15, 2)
+
+  document FiscalDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  taxes    FiscalTax[]
+
+  @@index([documentId])
+  @@map("fiscal_items")
+}
+
+model FiscalTax {
+  id         String   @id @default(uuid())
+  documentId String   @map("document_id")
+  itemId     String?  @map("item_id")
+  taxType    String?  @map("tax_type")
+  cst        String?
+  csosn      String?
+  baseAmount Decimal? @map("base_amount") @db.Decimal(15, 2)
+  rate       Decimal? @db.Decimal(8, 4)
+  taxAmount  Decimal? @map("tax_amount") @db.Decimal(15, 2)
+
+  document FiscalDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  item     FiscalItem?    @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([documentId])
+  @@index([itemId])
+  @@map("fiscal_taxes")
+}
+
+model ImportBatch {
+  id           String      @id @default(uuid())
+  userId       String      @map("user_id")
+  fileName     String      @map("file_name")
+  fileType     String      @map("file_type")
+  totalFiles   Int         @default(0) @map("total_files")
+  successCount Int         @default(0) @map("success_count")
+  errorCount   Int         @default(0) @map("error_count")
+  importedAt   DateTime    @default(now()) @map("imported_at")
+  status       BatchStatus @default(pending)
+
+  user   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  errors ImportError[]
+
+  @@index([userId])
+  @@map("import_batches")
+}
+
+model ImportError {
+  id           String   @id @default(uuid())
+  batchId      String   @map("batch_id")
+  fileName     String   @map("file_name")
+  errorMessage String   @map("error_message")
+  rawContent   String?  @map("raw_content") @db.Text
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  batch ImportBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  @@index([batchId])
+  @@map("import_errors")
+}
+
+model ChatConversation {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  title     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+
+  @@index([userId])
+  @@map("chat_conversations")
+}
+
+model ChatMessage {
+  id             String   @id @default(uuid())
+  conversationId String   @map("conversation_id")
+  role           ChatRole
+  content        String   @db.Text
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  conversation ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@map("chat_messages")
+}

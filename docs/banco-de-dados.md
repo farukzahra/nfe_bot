@@ -8,6 +8,20 @@ ORM: **Prisma**
 
 ## Tabelas Principais
 
+### users
+
+Armazena os usuários do sistema.
+
+| Campo | Descrição |
+|---|---|
+| id | Identificador único |
+| email | Email do usuário (único) |
+| password_hash | Senha com hash (bcrypt) |
+| created_at | Criação do registro |
+| updated_at | Última atualização |
+
+> Detalhes de cadastro, login e JWT: [auth.md](./auth.md)
+
 ### fiscal_documents
 
 Armazena a nota como documento principal.
@@ -15,6 +29,7 @@ Armazena a nota como documento principal.
 | Campo | Descrição |
 |---|---|
 | id | Identificador único |
+| user_id | Referência ao usuário dono do documento |
 | access_key | Chave de acesso da NF-e |
 | document_number | Número da nota |
 | series | Série |
@@ -96,8 +111,9 @@ Armazena cada lote de importação.
 | Campo | Descrição |
 |---|---|
 | id | Identificador único |
+| user_id | Referência ao usuário dono do lote |
 | file_name | Nome do arquivo |
-| file_type | Tipo (xml, zip, pdf) |
+| file_type | Tipo (xml, zip) |
 | total_files | Total de arquivos no lote |
 | success_count | Importados com sucesso |
 | error_count | Erros |
@@ -115,4 +131,28 @@ Armazena erros de importação.
 | file_name | Nome do arquivo com erro |
 | error_message | Mensagem de erro |
 | raw_content | Conteúdo original do arquivo |
+| created_at | Criação do registro |
+
+### chat_conversations
+
+Armazena conversas do chatbot por usuário.
+
+| Campo | Descrição |
+|---|---|
+| id | Identificador único |
+| user_id | Referência ao usuário |
+| title | Título da conversa (gerado automaticamente) |
+| created_at | Criação do registro |
+| updated_at | Última atualização |
+
+### chat_messages
+
+Armazena mensagens de cada conversa.
+
+| Campo | Descrição |
+|---|---|
+| id | Identificador único |
+| conversation_id | Referência à conversa |
+| role | `user` ou `assistant` |
+| content | Conteúdo da mensagem |
 | created_at | Criação do registro |

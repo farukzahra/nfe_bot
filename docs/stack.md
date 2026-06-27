@@ -95,8 +95,24 @@ Stack recomendada para o projeto NFe Bot, utilizando JavaScript/TypeScript em to
 | Tecnologia | Motivo |
 |---|---|
 | **ESLint** + **Prettier** | Padronização de código |
-| **Vitest** | Testes unitários — mesmo ecossistema do Vite |
+| **Playwright** | Testes E2E das telas e fluxos |
 | **Vue DevTools** | Debug de componentes e estado |
+
+### Visual
+
+| Recurso | Motivo |
+|---|---|
+| **Vuetify 3 - Vite Theme FREE** | Tema oficial gratuito — dark, primary `#1697f6`, defaults globais |
+
+> Detalhes: [visual.md](./visual.md)
+
+### Testes Backend
+
+| Tecnologia | Motivo |
+|---|---|
+| **Vitest** | Testes unitários de services, schemas e parsers |
+
+> Estratégia completa: [testes.md](./testes.md)
 
 ---
 
@@ -155,4 +171,5 @@ nfe_bot/
 | Parser XML | fast-xml-parser | xml2js (API mais antiga) |
 | IA SDK | Vercel AI SDK | OpenAI SDK direto (acoplado ao provedor) |
 | UI | Vuetify 3 | Quasar / PrimeVue |
-| Testes | Vitest | Jest (mais lento com Vite) |
+| Testes backend | Vitest (unit) | Jest (mais lento) |
+| Testes frontend | Playwright (E2E) | Cypress |

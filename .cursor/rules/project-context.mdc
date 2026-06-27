@@ -29,12 +29,16 @@ Toda a documentação fica na pasta `docs/`. O índice principal é `main.md`.
 | `docs/classificacao.md` | Regras de entrada/saída |
 | `docs/banco-de-dados.md` | Schema do banco de dados |
 | `docs/banco-conexao.md` | URLs de conexão e variáveis de ambiente |
+| `docs/auth.md` | Cadastro, login, JWT e isolamento por usuário |
 | `docs/fase2-crud.md` | Tela de CRUD dos imports |
 | `docs/telas.md` | Inventário de telas, rotas e padrões de UI |
 | `docs/fase3-chatbot.md` | Chatbot gerencial e tool calling |
 | `docs/arquitetura.md` | Arquitetura e decisões técnicas |
 | `docs/seguranca.md` | Segurança e permissões |
 | `docs/roadmap.md` | Roadmap do produto |
+| `docs/fases-implementacao.md` | Checklist de progresso — marcar ao concluir cada fase |
+| `docs/testes.md` | Estratégia de testes (Vitest + Playwright) |
+| `docs/visual.md` | Identidade visual — Vuetify 3 Vite Theme FREE |
 | `docs/stack.md` | Stack técnica detalhada |
 
 ## Decisões Arquiteturais
@@ -42,8 +46,9 @@ Toda a documentação fica na pasta `docs/`. O índice principal é `main.md`.
 - O chatbot **nunca acessa o banco diretamente** — sempre via funções/tools do backend
 - **Sem MCP no MVP** — tool calling interno é suficiente
 - **Sem SQL livre** — o LLM chama funções seguras do backend
-- Isolamento por empresa/tenant obrigatório
-- Toda função chamada pelo chatbot deve validar permissão antes de executar
+- Isolamento por usuário (`user_id`) — cada usuário acessa somente os próprios dados
+- Cadastro/login simples com email, senha e JWT
+- Toda função chamada pelo chatbot deve validar `user_id` antes de executar
 
 ## Convenções de Código
 
@@ -53,6 +58,34 @@ Toda a documentação fica na pasta `docs/`. O índice principal é `main.md`.
 - Erros devem ser tipados e logados com Pino
 - Nomes de arquivos em kebab-case
 - Nomes de funções e variáveis em camelCase
+
+## Regras de Testes (obrigatório)
+
+Toda implementação deve vir acompanhada de testes e estes devem ser executados antes de considerar a tarefa concluída.
+
+| Camada | Ferramenta | Tipo | Onde |
+|---|---|---|---|
+| Backend | **Vitest** | Unitário | `backend/src/**/*.test.ts` |
+| Frontend | **Playwright** | E2E | `frontend/e2e/**/*.spec.ts` |
+
+### O que fazer ao implementar
+
+1. **Backend** — criar ou atualizar teste unitário para cada rota, service, parser ou utilitário alterado
+2. **Frontend** — criar ou atualizar teste Playwright para cada tela, fluxo ou interação alterada
+3. **Rodar os testes** relacionados à mudança antes de finalizar:
+   - Backend: `npm test` (ou `npm run test`) em `backend/`
+   - Frontend: `npm run test:e2e` em `frontend/`
+4. Se a mudança afetar backend **e** frontend, rodar **ambos**
+5. Não marcar item em `docs/fases-implementacao.md` como concluído se os testes falharem
+
+### Convenções
+
+- Um teste por funcionalidade mínima (ex.: `auth.service.test.ts` para `AuthService`)
+- Playwright: um spec por fluxo de tela (ex.: `login.spec.ts`, `register.spec.ts`)
+- Testes devem ser independentes e repetíveis
+- Mockar banco externo nos unit tests do backend quando possível; Playwright usa app real em dev
+
+> Detalhes: [docs/testes.md](./docs/testes.md)
 
 ## Regras de Commit
 
@@ -74,10 +107,14 @@ test(scope): short description
   "hash": "<primeiros 7 chars do hash>",
   "type": "feat|fix|chore|docs|refactor|test",
   "scope": "<módulo afetado>",
-  "message": "<mensagem do commit>",
+  "message": "tipo(scope): descrição completa do commit",
   "date": "<YYYY-MM-DD>",
   "files": ["lista dos arquivos principais alterados"]
 }
 ```
 
 O arquivo `docs/commit-history.json` é o histórico oficial de commits do projeto — usado futuramente em uma tela de changelog.
+
+## Progresso de Implementação
+
+Ao concluir itens ou fases, atualizar os checkboxes em `docs/fases-implementacao.md` (`[ ]` → `[x]`).

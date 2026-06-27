@@ -1,6 +1,6 @@
 # Fase 2 — Tela de CRUD dos Imports
 
-Depois da importação, o sistema deve ter uma tela simples para visualizar e corrigir os dados importados.
+Depois da importação, o sistema deve ter uma tela simples para visualizar e corrigir os dados importados pelo usuário logado.
 
 ## Funcionalidades
 

@@ -51,4 +51,4 @@ getImportErrors(startDate, endDate)
 getEstimatedMargin(productCode, startDate, endDate)
 ```
 
-Essas funções executam SQL seguro no backend e retornam dados estruturados para a IA explicar.
+Essas funções executam SQL seguro no backend, **sempre filtrando pelo `user_id` do token**, e retornam dados estruturados para a IA explicar.

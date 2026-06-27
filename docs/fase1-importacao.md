@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Permitir que o usuário importe arquivos fiscais no sistema.
+Permitir que o usuário autenticado importe arquivos fiscais no sistema. Cada importação fica vinculada ao `user_id` do usuário logado.
 
 Formatos aceitos inicialmente:
 

@@ -14,6 +14,7 @@
 | 4 | [Classificação Entrada/Saída](./docs/classificacao.md) | Regras de separação de documentos |
 | 5 | [Banco de Dados](./docs/banco-de-dados.md) | Tabelas, campos e modelo de dados |
 | 5.1 | [Conexões com o Banco](./docs/banco-conexao.md) | URLs de dev e produção, variáveis de ambiente |
+| 5.2 | [Autenticação](./docs/auth.md) | Cadastro, login, JWT e isolamento por usuário |
 | 6 | [Fase 2 — CRUD](./docs/fase2-crud.md) | Tela de visualização e correção dos imports |
 | 6.1 | [Telas](./docs/telas.md) | Inventário de telas, rotas, padrões de UI e ações |
 | 7 | [Fase 3 — Chatbot](./docs/fase3-chatbot.md) | Chatbot gerencial, margem e tool calling |
@@ -21,6 +22,9 @@
 | 9 | [Stack](./docs/stack.md) | Stack técnica Full JS detalhada |
 | 10 | [Segurança](./docs/seguranca.md) | Isolamento, permissões e auditoria |
 | 11 | [Roadmap](./docs/roadmap.md) | Fases planejadas do produto |
+| 12 | [Fases de Implementação](./docs/fases-implementacao.md) | Checklist de progresso do desenvolvimento |
+| 13 | [Testes](./docs/testes.md) | Vitest (backend) + Playwright (frontend) |
+| 14 | [Visual](./docs/visual.md) | Tema Vuetify 3 - Vite Theme FREE |
 
 ---
 
@@ -34,11 +38,14 @@ nfe_bot/
 │   ├── dados.md
 │   ├── classificacao.md
 │   ├── banco-de-dados.md
+│   ├── banco-conexao.md
+│   ├── auth.md
 │   ├── fase2-crud.md
 │   ├── fase3-chatbot.md
 │   ├── arquitetura.md
 │   ├── seguranca.md
 │   ├── roadmap.md
-│   └── stack.md
+│   ├── stack.md
+│   └── fases-implementacao.md
 └── main.md
 ```

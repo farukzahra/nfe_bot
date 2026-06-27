@@ -11,6 +11,12 @@ node_modules/
 dist/
 build/
 .output/
+*.tsbuildinfo
+
+# Testes
+test-results/
+playwright-report/
+blob-report/
 
 # Logs
 *.log

@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "hash": "ff1218e",
+    "type": "docs",
+    "scope": "project",
+    "message": "docs: initial project documentation and structure",
+    "date": "2026-06-27",
+    "files": [
+      "main.md",
+      ".gitignore",
+      ".cursor/rules/project-context.mdc",
+      "docs/overview.md",
+      "docs/fase1-importacao.md",
+      "docs/dados.md",
+      "docs/classificacao.md",
+      "docs/banco-de-dados.md",
+      "docs/banco-conexao.md",
+      "docs/fase2-crud.md",
+      "docs/telas.md",
+      "docs/fase3-chatbot.md",
+      "docs/arquitetura.md",
+      "docs/stack.md",
+      "docs/seguranca.md",
+      "docs/roadmap.md",
+      "docs/commit-history.json"
+    ]
+  }
+]
