@@ -9,6 +9,8 @@ import { authRoutes } from './routes/auth.js'
 import { healthRoutes } from './routes/health.js'
 import { aboutRoutes } from './routes/about.js'
 import { importRoutes } from './routes/import.js'
+import { documentRoutes } from './routes/documents.js'
+import { errorsRoutes } from './routes/errors.js'
 
 export async function buildApp(options: { logger?: boolean } = {}) {
   const app = Fastify({
@@ -21,7 +23,7 @@ export async function buildApp(options: { logger?: boolean } = {}) {
     credentials: true,
   })
   await app.register(rateLimit, {
-    max: 100,
+    max: 500,
     timeWindow: '1 minute',
   })
   await app.register(multipart, {
@@ -34,6 +36,8 @@ export async function buildApp(options: { logger?: boolean } = {}) {
   await app.register(authRoutes, { prefix: '/auth' })
   await app.register(aboutRoutes, { prefix: '/about' })
   await app.register(importRoutes, { prefix: '/import' })
+  await app.register(documentRoutes, { prefix: '/documents' })
+  await app.register(errorsRoutes, { prefix: '/errors' })
 
   return app
 }

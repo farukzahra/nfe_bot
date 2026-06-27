@@ -49,15 +49,15 @@ Controle de progresso do desenvolvimento. Marcar cada item ao concluir.
 
 ## Fase 2 — CRUD e Consulta de Documentos
 
-- [ ] Tela `/documents` com abas Entrada / Saída / Todos
-- [ ] Filtros: data, CNPJ, status, valor
-- [ ] Drawer com resumo da nota
-- [ ] Página `/documents/:id` com abas: Dados, Itens, Impostos, XML
-- [ ] Tela `/errors` com listagem e modal de detalhe
-- [ ] Reprocessar documento
-- [ ] Excluir importação
-- [ ] Corrigir classificação manualmente
-- [ ] Todas as queries filtradas por `user_id`
+- [x] Tela `/documents` com abas Entrada / Saída / Todos
+- [x] Filtros: data, CNPJ, status, valor
+- [x] Drawer com resumo da nota
+- [x] Página `/documents/:id` com abas: Dados, Itens, Impostos, XML
+- [x] Tela `/errors` com listagem e modal de detalhe
+- [x] Reprocessar documento
+- [x] Excluir importação
+- [x] Corrigir classificação manualmente
+- [x] Todas as queries filtradas por `user_id`
 
 **Critério de pronto:** CRUD funcional sobre os documentos importados pelo usuário logado.
 
@@ -127,4 +127,4 @@ Controle de progresso do desenvolvimento. Marcar cada item ao concluir.
 Fase 0 → Fase 1 → Fase 2 → Fase 3 → Fase 4 → Fase 4.5 → Fase 5
 ```
 
-**Fase atual:** Fase 2 — CRUD e Consulta de Documentos
+**Fase atual:** Fase 3 — Chatbot Gerencial
