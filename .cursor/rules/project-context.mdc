@@ -115,6 +115,20 @@ test(scope): short description
 
 O arquivo `docs/commit-history.json` é o histórico oficial de commits do projeto — usado futuramente em uma tela de changelog.
 
+**Quando o usuário pedir commit**, sempre executar também o **push** para o remote:
+
+```bash
+git push -u origin HEAD   # se branch ainda não rastreia remote
+git push                    # se branch já rastreia remote
+```
+
+Fluxo completo ao pedir commit:
+
+1. `git add` + `git commit` (Conventional Commits)
+2. Atualizar `docs/commit-history.json`
+3. `git push` (obrigatório)
+4. Informar hash e URL do repositório ao usuário
+
 ## Progresso de Implementação
 
 Ao concluir itens ou fases, atualizar os checkboxes em `docs/fases-implementacao.md` (`[ ]` → `[x]`).
