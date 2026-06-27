@@ -1,0 +1,83 @@
+---
+description: Contexto completo do projeto NFe Bot para o agente de IA
+alwaysApply: true
+---
+
+# NFe Bot — Contexto do Projeto
+
+Sistema de importação de NF-e/NFC-e com chatbot gerencial.
+
+**Repositório:** https://github.com/farukzahra/nfe_bot.git
+
+## Stack
+
+- **Backend**: Node.js 22+ + Fastify + TypeScript + Prisma + PostgreSQL
+- **Frontend**: Vue 3 + Vite + Vuetify 3 + Pinia
+- **IA**: Vercel AI SDK com tool calling
+- **XML Parser**: fast-xml-parser
+- **Validação**: Zod
+
+## Documentação
+
+Toda a documentação fica na pasta `docs/`. O índice principal é `main.md`.
+
+| Arquivo | Conteúdo |
+|---|---|
+| `docs/overview.md` | Visão geral do sistema |
+| `docs/fase1-importacao.md` | Importação de XML e ZIP |
+| `docs/dados.md` | Campos extraídos da NF-e/NFC-e |
+| `docs/classificacao.md` | Regras de entrada/saída |
+| `docs/banco-de-dados.md` | Schema do banco de dados |
+| `docs/banco-conexao.md` | URLs de conexão e variáveis de ambiente |
+| `docs/fase2-crud.md` | Tela de CRUD dos imports |
+| `docs/telas.md` | Inventário de telas, rotas e padrões de UI |
+| `docs/fase3-chatbot.md` | Chatbot gerencial e tool calling |
+| `docs/arquitetura.md` | Arquitetura e decisões técnicas |
+| `docs/seguranca.md` | Segurança e permissões |
+| `docs/roadmap.md` | Roadmap do produto |
+| `docs/stack.md` | Stack técnica detalhada |
+
+## Decisões Arquiteturais
+
+- O chatbot **nunca acessa o banco diretamente** — sempre via funções/tools do backend
+- **Sem MCP no MVP** — tool calling interno é suficiente
+- **Sem SQL livre** — o LLM chama funções seguras do backend
+- Isolamento por empresa/tenant obrigatório
+- Toda função chamada pelo chatbot deve validar permissão antes de executar
+
+## Convenções de Código
+
+- TypeScript estrito em todo o projeto
+- Zod para validação de entrada em todas as rotas
+- Prisma como ORM — não usar SQL raw sem justificativa
+- Erros devem ser tipados e logados com Pino
+- Nomes de arquivos em kebab-case
+- Nomes de funções e variáveis em camelCase
+
+## Regras de Commit
+
+Sempre usar **Conventional Commits** em inglês:
+
+```
+feat(scope): short description
+fix(scope): short description
+chore(scope): short description
+docs(scope): short description
+refactor(scope): short description
+test(scope): short description
+```
+
+**Após cada commit**, adicionar uma entrada no arquivo `docs/commit-history.json`:
+
+```json
+{
+  "hash": "<primeiros 7 chars do hash>",
+  "type": "feat|fix|chore|docs|refactor|test",
+  "scope": "<módulo afetado>",
+  "message": "<mensagem do commit>",
+  "date": "<YYYY-MM-DD>",
+  "files": ["lista dos arquivos principais alterados"]
+}
+```
+
+O arquivo `docs/commit-history.json` é o histórico oficial de commits do projeto — usado futuramente em uma tela de changelog.
