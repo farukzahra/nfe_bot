@@ -135,5 +135,28 @@
       "frontend/src/views/AboutView.vue",
       "docs/fases-implementacao.md"
     ]
+  },
+  {
+    "hash": "34c1b24",
+    "type": "feat",
+    "scope": "crud",
+    "message": "feat(crud): implement phase 2 - document CRUD and consultation",
+    "date": "2026-06-27T23:55:00.000Z",
+    "files": [
+      "backend/src/services/document.service.ts",
+      "backend/src/services/document.service.test.ts",
+      "backend/src/services/errors.service.ts",
+      "backend/src/routes/documents.ts",
+      "backend/src/routes/documents.test.ts",
+      "backend/src/routes/errors.ts",
+      "backend/src/app.ts",
+      "frontend/src/views/DocumentsView.vue",
+      "frontend/src/views/DocumentDetailView.vue",
+      "frontend/src/views/ErrorsView.vue",
+      "frontend/src/api/client.ts",
+      "frontend/src/router/index.ts",
+      "frontend/e2e/documents.spec.ts",
+      "docs/fases-implementacao.md"
+    ]
   }
 ]
