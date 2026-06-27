@@ -95,6 +95,19 @@ Controle de progresso do desenvolvimento. Marcar cada item ao concluir.
 
 ---
 
+## Fase 4.5 — Tela Sobre: Tabela de Histórico de Commits
+
+- [x] Substituir `v-data-table` por `v-table` estático e elegante
+- [x] Exibir colunas: hash, tipo (badge colorido), scope, mensagem, data/hora
+- [x] Ordenar do mais recente para o mais antigo (backend já ordena por timestamp)
+- [x] Estilo changelog: linhas alternadas, fonte monoespaçada nos hashes
+- [x] Remover paginação e controles desnecessários — exibir tudo de uma vez
+- [x] Manter botão Atualizar e indicador de última leitura
+
+**Critério de pronto:** tela Sobre exibe commits em tabela limpa e sem poluição visual.
+
+---
+
 ## Fase 5 — Expansão (futuro)
 
 - [ ] Multiempresa / tenant
@@ -111,7 +124,7 @@ Controle de progresso do desenvolvimento. Marcar cada item ao concluir.
 ## Ordem de execução
 
 ```
-Fase 0 → Fase 1 → Fase 2 → Fase 3 → Fase 4 → Fase 5
+Fase 0 → Fase 1 → Fase 2 → Fase 3 → Fase 4 → Fase 4.5 → Fase 5
 ```
 
 **Fase atual:** Fase 2 — CRUD e Consulta de Documentos
