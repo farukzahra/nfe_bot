@@ -3,7 +3,7 @@
     "hash": "ff1218e",
     "type": "docs",
     "scope": "project",
-    "message": "docs: initial project documentation and structure",
+    "message": "docs(project): initial project documentation and structure",
     "date": "2026-06-27",
     "files": [
       "main.md",
@@ -23,6 +23,25 @@
       "docs/seguranca.md",
       "docs/roadmap.md",
       "docs/commit-history.json"
+    ]
+  },
+  {
+    "hash": "f95ca09",
+    "type": "feat",
+    "scope": "project",
+    "message": "feat(project): implement phase 0 foundation, visual theme and about page",
+    "date": "2026-06-27",
+    "files": [
+      "backend/",
+      "frontend/",
+      "docs/auth.md",
+      "docs/fases-implementacao.md",
+      "docs/testes.md",
+      "docs/visual.md",
+      "docs/telas.md",
+      "main.md",
+      ".cursor/rules/project-context.mdc",
+      ".gitignore"
     ]
   }
 ]
