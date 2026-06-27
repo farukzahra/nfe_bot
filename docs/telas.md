@@ -196,3 +196,24 @@ Rotas protegidas redirecionam para `/login` se o usuário não estiver autentica
 - Iniciar nova conversa
 - Acessar conversa anterior do histórico
 - Copiar resposta da IA
+
+---
+
+## 6. Sobre / Changelog
+
+**Rota:** `/about`
+**Padrão:** Page com tabela
+
+### Componentes
+
+- Tabela com dados de `docs/commit-history.json` — **leitura dinâmica**, sem cache
+- Colunas: hash, tipo, scope, mensagem, data, arquivos
+- Chips coloridos por tipo de commit (feat, fix, docs, chore...)
+- Carregado via API `GET /about/commit-history` a cada visita à tela
+- Botão **Atualizar** para recarregar manualmente
+- Timestamp da última leitura exibido na tela
+
+### Ações
+
+- Visualizar histórico de commits do projeto
+- Atualizar lista após mudanças no JSON

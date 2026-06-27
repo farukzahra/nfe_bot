@@ -108,12 +108,14 @@ test(scope): short description
   "type": "feat|fix|chore|docs|refactor|test",
   "scope": "<módulo afetado>",
   "message": "tipo(scope): descrição completa do commit",
-  "date": "<YYYY-MM-DD>",
+  "date": "<ISO 8601 timestamp — ex: 2026-06-27T23:00:00.000Z>",
   "files": ["lista dos arquivos principais alterados"]
 }
 ```
 
-O arquivo `docs/commit-history.json` é o histórico oficial de commits do projeto — usado futuramente em uma tela de changelog.
+O arquivo `docs/commit-history.json` é o histórico oficial de commits do projeto.
+
+A tela **Sobre** (`/about`) lê esse JSON **dinamicamente** via `GET /about/commit-history` — sem cache. Sempre que o JSON for atualizado, a tela reflete na próxima visita ou ao clicar em Atualizar.
 
 **Quando o usuário pedir commit**, sempre executar também o **push** para o remote:
 

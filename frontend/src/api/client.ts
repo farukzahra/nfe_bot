@@ -55,4 +55,17 @@ export const api = {
   me() {
     return request<{ user: AuthUser }>('/auth/me')
   },
+
+  commitHistory() {
+    return request<{ commits: CommitEntry[] }>('/about/commit-history')
+  },
+}
+
+export interface CommitEntry {
+  hash: string
+  type: string
+  scope: string
+  message: string
+  date: string
+  files: string[]
 }

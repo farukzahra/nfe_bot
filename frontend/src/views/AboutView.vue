@@ -1,81 +1,160 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import PageCard from '@/components/PageCard.vue'
-import {
-  documentationIndex,
-  projectSummary,
-  repositoryUrl,
-} from '@/data/docs-index'
+import { api, type CommitEntry } from '@/api/client'
+
+const route = useRoute()
+const commits = ref<CommitEntry[]>([])
+const loading = ref(false)
+const error = ref<string | null>(null)
+const lastUpdated = ref<Date | null>(null)
+
+const headers = [
+  { title: 'Hash', key: 'hash', width: '90px' },
+  { title: 'Tipo', key: 'type', width: '90px' },
+  { title: 'Scope', key: 'scope', width: '110px' },
+  { title: 'Mensagem', key: 'message' },
+  { title: 'Data', key: 'date', width: '170px' },
+  { title: 'Arquivos', key: 'files', sortable: false },
+]
+
+const typeColors: Record<string, string> = {
+  feat: 'success',
+  fix: 'error',
+  chore: 'grey',
+  docs: 'info',
+  refactor: 'warning',
+  test: 'purple',
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}
+
+async function loadCommits() {
+  loading.value = true
+  error.value = null
+
+  try {
+    const { commits: data } = await api.commitHistory()
+    commits.value = data
+    lastUpdated.value = new Date()
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Erro ao carregar histórico'
+  } finally {
+    loading.value = false
+  }
+}
+
+watch(
+  () => route.name,
+  (name) => {
+    if (name === 'about') {
+      loadCommits()
+    }
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
   <PageCard
-    title="Sobre o NFe Bot"
-    subtitle="Documentação do projeto — espelho do índice em main.md"
+    title="Sobre"
+    subtitle="Histórico de commits — lido dinamicamente de docs/commit-history.json"
   >
-    <p class="text-body-1 mb-6">
-      {{ projectSummary }}
-    </p>
+    <template #actions>
+      <v-btn
+        variant="tonal"
+        prepend-icon="mdi-refresh"
+        :loading="loading"
+        data-testid="about-refresh"
+        @click="loadCommits"
+      >
+        Atualizar
+      </v-btn>
+    </template>
 
-    <v-alert type="info" variant="tonal" class="mb-6">
-      Os arquivos abaixo ficam na pasta <code>docs/</code> do repositório.
-      O índice principal é <code>main.md</code>.
+    <v-alert type="info" variant="tonal" class="mb-4">
+      Os dados vêm do arquivo <code>docs/commit-history.json</code> via API.
+      Sempre que o JSON for atualizado, basta abrir esta tela ou clicar em Atualizar.
+      <span v-if="lastUpdated" class="d-block mt-2 text-caption">
+        Última leitura: {{ lastUpdated.toLocaleString('pt-BR') }}
+      </span>
     </v-alert>
 
-    <v-list lines="two" class="pa-0">
-      <v-list-item
-        v-for="doc in documentationIndex"
-        :key="doc.id"
-        rounded="sm"
-        class="mb-2 doc-item"
-      >
-        <template #prepend>
-          <v-avatar color="primary" variant="tonal" size="36">
-            <span class="text-caption font-weight-bold">{{ doc.number }}</span>
-          </v-avatar>
-        </template>
+    <v-alert
+      v-if="error"
+      type="error"
+      variant="tonal"
+      class="mb-4"
+      data-testid="about-error"
+    >
+      {{ error }}
+    </v-alert>
 
-        <v-list-item-title class="font-weight-medium">
-          {{ doc.title }}
-        </v-list-item-title>
-        <v-list-item-subtitle>
-          {{ doc.description }}
-        </v-list-item-subtitle>
+    <v-data-table
+      :headers="headers"
+      :items="commits"
+      :loading="loading"
+      item-key="hash"
+      class="commit-table"
+      data-testid="commit-history-table"
+    >
+      <template #item.hash="{ item }">
+        <code>{{ item.hash }}</code>
+      </template>
 
-        <template #append>
-          <v-chip size="small" variant="outlined" class="doc-file">
-            {{ doc.file }}
+      <template #item.type="{ item }">
+        <v-chip
+          size="small"
+          :color="typeColors[item.type] ?? 'default'"
+          variant="tonal"
+        >
+          {{ item.type }}
+        </v-chip>
+      </template>
+
+      <template #item.date="{ item }">
+        <span class="text-caption text-medium-emphasis">{{ formatDate(item.date) }}</span>
+      </template>
+
+      <template #item.message="{ item }">
+        <span class="text-body-2">{{ item.message }}</span>
+      </template>
+
+      <template #item.files="{ item }">
+        <div class="d-flex flex-wrap ga-1 py-1">
+          <v-chip
+            v-for="file in item.files"
+            :key="file"
+            size="x-small"
+            variant="outlined"
+            class="file-chip"
+          >
+            {{ file }}
           </v-chip>
-        </template>
-      </v-list-item>
-    </v-list>
-
-    <v-divider class="my-6" />
-
-    <div class="d-flex align-center flex-wrap ga-3">
-      <v-btn
-        :href="repositoryUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-        prepend-icon="mdi-github"
-        variant="outlined"
-      >
-        Repositório GitHub
-      </v-btn>
-      <v-chip prepend-icon="mdi-book-open-variant" variant="tonal">
-        {{ documentationIndex.length }} documentos
-      </v-chip>
-    </div>
+        </div>
+      </template>
+    </v-data-table>
   </PageCard>
 </template>
 
 <style scoped>
-.doc-item {
-  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+.commit-table code {
+  font-family: monospace;
+  font-size: 0.8125rem;
 }
 
-.doc-file {
+.file-chip {
   font-family: monospace;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
 }
 
 code {

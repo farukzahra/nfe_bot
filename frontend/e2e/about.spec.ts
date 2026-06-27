@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('About', () => {
-  test('shows documentation index after login', async ({ page }) => {
+  test('shows commit history table after login', async ({ page }) => {
     const testEmail = `about-${Date.now()}@example.com`
     const testPassword = 'secret123'
 
@@ -14,8 +14,11 @@ test.describe('About', () => {
 
     await page.getByTestId('nav-about').click()
     await expect(page).toHaveURL('/about')
-    await expect(page.getByText('Sobre o NFe Bot')).toBeVisible()
-    await expect(page.getByText('Visão Geral')).toBeVisible()
-    await expect(page.getByText('docs/visual.md')).toBeVisible()
+    await expect(page.getByText('Histórico de commits')).toBeVisible()
+    await expect(page.getByTestId('commit-history-table')).toBeVisible()
+    await expect(page.getByText('feat(project): implement phase 0 foundation')).toBeVisible()
+
+    await page.getByTestId('about-refresh').click()
+    await expect(page.getByTestId('commit-history-table')).toBeVisible()
   })
 })
