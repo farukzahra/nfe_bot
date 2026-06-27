@@ -31,17 +31,17 @@ Controle de progresso do desenvolvimento. Marcar cada item ao concluir.
 
 ## Fase 1 — Importação de XML/ZIP
 
-- [ ] Upload de `.xml` via API
-- [ ] Upload de `.zip` via API
-- [ ] Parser NF-e/NFC-e com `fast-xml-parser`
-- [ ] Extração dos campos definidos em `docs/dados.md`
-- [ ] Classificação entrada/saída via `tpNF`
-- [ ] Persistência: `fiscal_documents`, `fiscal_parties`, `fiscal_items`, `fiscal_taxes`
-- [ ] Persistência: `import_batches` e `import_errors`
-- [ ] Vincular importação ao `user_id` do token
-- [ ] Tela `/import` com drag & drop
-- [ ] Resumo do resultado após importação (sucesso/erros)
-- [ ] Validação de entrada com Zod
+- [x] Upload de `.xml` via API
+- [x] Upload de `.zip` via API
+- [x] Parser NF-e/NFC-e com `fast-xml-parser`
+- [x] Extração dos campos definidos em `docs/dados.md`
+- [x] Classificação entrada/saída via `tpNF`
+- [x] Persistência: `fiscal_documents`, `fiscal_parties`, `fiscal_items`, `fiscal_taxes`
+- [x] Persistência: `import_batches` e `import_errors`
+- [x] Vincular importação ao `user_id` do token
+- [x] Tela `/import` com drag & drop
+- [x] Resumo do resultado após importação (sucesso/erros)
+- [x] Validação de entrada com Zod
 
 **Critério de pronto:** usuário logado importa XML/ZIP e dados ficam salvos no PostgreSQL.
 
@@ -114,4 +114,4 @@ Controle de progresso do desenvolvimento. Marcar cada item ao concluir.
 Fase 0 → Fase 1 → Fase 2 → Fase 3 → Fase 4 → Fase 5
 ```
 
-**Fase atual:** Fase 1 — Importação de XML/ZIP
+**Fase atual:** Fase 2 — CRUD e Consulta de Documentos

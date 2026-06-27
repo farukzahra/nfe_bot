@@ -2,11 +2,13 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import helmet from '@fastify/helmet'
 import rateLimit from '@fastify/rate-limit'
+import multipart from '@fastify/multipart'
 import { prismaPlugin } from './plugins/prisma.js'
 import { authPlugin } from './plugins/auth.js'
 import { authRoutes } from './routes/auth.js'
 import { healthRoutes } from './routes/health.js'
 import { aboutRoutes } from './routes/about.js'
+import { importRoutes } from './routes/import.js'
 
 export async function buildApp(options: { logger?: boolean } = {}) {
   const app = Fastify({
@@ -22,12 +24,16 @@ export async function buildApp(options: { logger?: boolean } = {}) {
     max: 100,
     timeWindow: '1 minute',
   })
+  await app.register(multipart, {
+    limits: { fileSize: 50 * 1024 * 1024 },
+  })
   await app.register(prismaPlugin)
   await app.register(authPlugin)
 
   await app.register(healthRoutes)
   await app.register(authRoutes, { prefix: '/auth' })
   await app.register(aboutRoutes, { prefix: '/about' })
+  await app.register(importRoutes, { prefix: '/import' })
 
   return app
 }

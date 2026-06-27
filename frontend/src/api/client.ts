@@ -59,6 +59,28 @@ export const api = {
   commitHistory() {
     return request<{ commits: CommitEntry[] }>('/about/commit-history')
   },
+
+  async importFile(file: File): Promise<ImportBatchResult> {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const isZip = file.name.toLowerCase().endsWith('.zip')
+    const endpoint = isZip ? '/import/zip' : '/import/xml'
+
+    const token = localStorage.getItem('token')
+    const headers: Record<string, string> = {}
+    if (token) headers['Authorization'] = `Bearer ${token}`
+
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      method: 'POST',
+      headers,
+      body: formData,
+    })
+
+    const data = await response.json().catch(() => ({}))
+    if (!response.ok) throw new Error(data.error || 'Import failed')
+    return data as ImportBatchResult
+  },
 }
 
 export interface CommitEntry {
@@ -68,4 +90,19 @@ export interface CommitEntry {
   message: string
   date: string
   files: string[]
+}
+
+export interface ImportFileResult {
+  success: boolean
+  fileName: string
+  documentId?: string
+  error?: string
+}
+
+export interface ImportBatchResult {
+  batchId: string
+  totalFiles: number
+  successCount: number
+  errorCount: number
+  results: ImportFileResult[]
 }
