@@ -43,5 +43,16 @@
       ".cursor/rules/project-context.mdc",
       ".gitignore"
     ]
+  },
+  {
+    "hash": "bce1b66",
+    "type": "chore",
+    "scope": "project",
+    "message": "chore(project): ignore tsbuildinfo and update commit history",
+    "date": "2026-06-27",
+    "files": [
+      "docs/commit-history.json",
+      ".gitignore"
+    ]
   }
 ]
