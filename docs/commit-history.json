@@ -54,5 +54,13 @@
       "docs/commit-history.json",
       ".gitignore"
     ]
+  },
+  {
+    "hash": "e9dbd92",
+    "type": "docs",
+    "scope": "project",
+    "message": "docs(project): add chore commit entry to history",
+    "date": "2026-06-27",
+    "files": ["docs/commit-history.json"]
   }
 ]
