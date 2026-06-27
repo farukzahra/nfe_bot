@@ -62,5 +62,21 @@
     "message": "docs(project): add chore commit entry to history",
     "date": "2026-06-27",
     "files": ["docs/commit-history.json"]
+  },
+  {
+    "hash": "9ad7e4f",
+    "type": "docs",
+    "scope": "project",
+    "message": "docs(project): sync commit history entries",
+    "date": "2026-06-27",
+    "files": ["docs/commit-history.json"]
+  },
+  {
+    "hash": "bfaa388",
+    "type": "docs",
+    "scope": "rules",
+    "message": "docs(rules): require git push after every commit",
+    "date": "2026-06-27",
+    "files": [".cursor/rules/project-context.mdc"]
   }
 ]
