@@ -86,5 +86,21 @@
     "message": "docs(project): update commit history after push rule",
     "date": "2026-06-27T23:22:00.000Z",
     "files": ["docs/commit-history.json"]
+  },
+  {
+    "hash": "bbe85fb",
+    "type": "feat",
+    "scope": "about",
+    "message": "feat(about): use ISO 8601 timestamps in commit history and sort by date",
+    "date": "2026-06-27T23:23:00.000Z",
+    "files": [
+      "docs/commit-history.json",
+      "backend/src/routes/about.ts",
+      "backend/src/routes/about.test.ts",
+      "frontend/src/views/AboutView.vue",
+      "frontend/src/api/client.ts",
+      "frontend/e2e/about.spec.ts",
+      ".cursor/rules/project-context.mdc"
+    ]
   }
 ]
