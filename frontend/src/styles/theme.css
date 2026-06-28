@@ -1,14 +1,73 @@
+/* ───────────────────────────────────────────────────────
+   Admin Dashboard — Global CSS overrides
+   ─────────────────────────────────────────────────────── */
+
+/* ─── Typography ─────────────────────────────────────── */
+body {
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(128, 128, 128, 0.5); }
+
+/* ─── Vuetify component tweaks ───────────────────────── */
+
+/* Cards with border in dark mode */
+.v-theme--dark .v-card {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.v-theme--light .v-card {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Navigation drawer border */
+.v-navigation-drawer {
+  border-right-color: rgba(128, 128, 128, 0.12) !important;
+}
+
+/* App bar border */
+.v-app-bar {
+  border-bottom-color: rgba(128, 128, 128, 0.12) !important;
+}
+
+/* Smooth page transitions */
+.v-main {
+  transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active nav item */
+.v-list-item--active {
+  font-weight: 600;
+}
+
+/* Table header */
+.v-data-table .v-data-table-header th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(var(--v-theme-on-surface), 0.55) !important;
+}
+
+/* Input focus */
+.v-field--focused .v-field__outline {
+  --v-field-border-opacity: 1;
+}
+
+/* Chip subtle style */
+.v-chip.v-chip--variant-tonal {
+  font-weight: 500;
+}
+
+/* Auth page background */
 .auth-bg {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top right, rgba(22, 151, 246, 0.12), transparent 40%),
-    linear-gradient(180deg, rgb(var(--v-theme-background)) 0%, rgb(var(--v-theme-surface)) 100%);
-}
-
-.brand-logo__icon {
-  color: rgb(var(--v-theme-primary));
-}
-
-.page-card {
-  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  background: rgb(var(--v-theme-background));
 }

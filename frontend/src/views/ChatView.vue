@@ -264,7 +264,7 @@ function useSuggestion(s: string) {
 <style scoped>
 .chat-layout {
   display: flex;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 64px);
   overflow: hidden;
 }
 

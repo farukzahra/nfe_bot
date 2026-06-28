@@ -164,7 +164,7 @@
     "type": "feat",
     "scope": "chatbot",
     "message": "feat(chatbot): implement phase 3 - AI chatbot with Google Gemini streaming",
-    "date": "2026-06-27T21:35:00-03:00",
+    "date": "2026-06-28T00:35:00.000Z",
     "files": [
       "backend/src/routes/chat.ts",
       "backend/src/routes/chat.test.ts",

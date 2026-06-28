@@ -29,6 +29,8 @@ test.describe('Login', () => {
     await page.getByTestId('register-submit').click()
     await expect(page).toHaveURL('/documents')
 
+    // Abrir menu de usuário e fazer logout
+    await page.getByTestId('user-menu-btn').click()
     await page.getByTestId('logout-btn').click()
     await expect(page).toHaveURL('/login')
 

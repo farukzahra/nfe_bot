@@ -69,7 +69,7 @@ export const chatRoutes: FastifyPluginAsync = async (app) => {
     const tools = createChatTools(userId, app.prisma)
 
     const result = streamText({
-      model: google('gemini-1.5-flash'),
+      model: google('gemini-2.0-flash'),
       system: SYSTEM_PROMPT,
       messages: messages.map((m) => ({ role: m.role, content: m.content })),
       tools,

@@ -2,37 +2,45 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import '@/styles/theme.css'
 import { createVuetify } from 'vuetify'
-import { VBtn } from 'vuetify/components'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 export default createVuetify({
   components,
   directives,
-  aliases: {
-    VBtnAlt: VBtn,
-  },
   defaults: {
-    global: {
-      rounded: 'sm',
+    VCard: {
+      elevation: 0,
+      rounded: 'lg',
+      border: true,
     },
-    VAppBar: {
-      flat: true,
+    VTextField: {
+      variant: 'outlined',
+      density: 'compact',
+      rounded: 'lg',
+    },
+    VSelect: {
+      variant: 'outlined',
+      density: 'compact',
+      rounded: 'lg',
+    },
+    VTextarea: {
+      variant: 'outlined',
+      density: 'compact',
+      rounded: 'lg',
     },
     VBtn: {
-      color: 'primary',
-      height: 44,
+      rounded: 'lg',
+      fontWeight: '500',
     },
-    VBtnAlt: {
-      color: 'primary',
-      height: 48,
-      variant: 'outlined',
+    VChip: {
+      rounded: 'lg',
     },
-    VCard: {
-      rounded: 'sm',
+    VAlert: {
+      rounded: 'lg',
     },
-    VSheet: {
-      color: '#212121',
+    VDataTable: {
+      rounded: 'lg',
     },
   },
   theme: {
@@ -41,13 +49,31 @@ export default createVuetify({
       dark: {
         dark: true,
         colors: {
+          background: '#16161E',
+          surface: '#1E1E2D',
+          'surface-variant': '#26263A',
           primary: '#1697f6',
+          'on-primary': '#ffffff',
+          secondary: '#7C7C8A',
+          error: '#FF5252',
+          info: '#1697f6',
+          success: '#56CA00',
+          warning: '#FFB400',
         },
       },
       light: {
         dark: false,
         colors: {
+          background: '#F4F5FA',
+          surface: '#FFFFFF',
+          'surface-variant': '#F0F1F8',
           primary: '#1697f6',
+          'on-primary': '#ffffff',
+          secondary: '#8A8D93',
+          error: '#FF5252',
+          info: '#1697f6',
+          success: '#56CA00',
+          warning: '#FFB400',
         },
       },
     },

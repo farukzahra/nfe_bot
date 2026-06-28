@@ -9,7 +9,7 @@ const commitEntrySchema = z.object({
   type: z.string(),
   scope: z.string(),
   message: z.string(),
-  date: z.string().datetime(),
+  date: z.string().datetime({ offset: true }),
   files: z.array(z.string()),
 })
 
