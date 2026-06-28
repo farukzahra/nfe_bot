@@ -158,5 +158,22 @@
       "frontend/e2e/documents.spec.ts",
       "docs/fases-implementacao.md"
     ]
+  },
+  {
+    "hash": "271ca7e",
+    "type": "feat",
+    "scope": "chatbot",
+    "message": "feat(chatbot): implement phase 3 - AI chatbot with Google Gemini streaming",
+    "date": "2026-06-27T21:35:00-03:00",
+    "files": [
+      "backend/src/routes/chat.ts",
+      "backend/src/routes/chat.test.ts",
+      "backend/src/services/chat.service.ts",
+      "backend/src/services/chat-tools.service.ts",
+      "frontend/src/views/ChatView.vue",
+      "frontend/e2e/chat.spec.ts",
+      "frontend/src/api/client.ts",
+      "docs/fases-implementacao.md"
+    ]
   }
 ]
