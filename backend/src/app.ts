@@ -11,6 +11,7 @@ import { aboutRoutes } from './routes/about.js'
 import { importRoutes } from './routes/import.js'
 import { documentRoutes } from './routes/documents.js'
 import { errorsRoutes } from './routes/errors.js'
+import { chatRoutes } from './routes/chat.js'
 
 export async function buildApp(options: { logger?: boolean } = {}) {
   const app = Fastify({
@@ -38,6 +39,7 @@ export async function buildApp(options: { logger?: boolean } = {}) {
   await app.register(importRoutes, { prefix: '/import' })
   await app.register(documentRoutes, { prefix: '/documents' })
   await app.register(errorsRoutes, { prefix: '/errors' })
+  await app.register(chatRoutes, { prefix: '/chat' })
 
   return app
 }

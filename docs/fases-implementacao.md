@@ -65,19 +65,21 @@ Controle de progresso do desenvolvimento. Marcar cada item ao concluir.
 
 ## Fase 3 — Chatbot Gerencial
 
-- [ ] Tela `/chat` com layout de conversa
-- [ ] Histórico de conversas por usuário (`chat_conversations`, `chat_messages`)
-- [ ] Integração Vercel AI SDK + tool calling
-- [ ] Tool: `getSalesSummary`
-- [ ] Tool: `getPurchasesSummary`
-- [ ] Tool: `getTopSellingProducts`
-- [ ] Tool: `getTopCustomers`
-- [ ] Tool: `getTopSuppliers`
-- [ ] Tool: `getProductHistory`
-- [ ] Tool: `getImportedDocuments`
-- [ ] Tool: `getImportErrors`
-- [ ] Tools filtradas por `user_id` (sem SQL livre)
-- [ ] Logs de perguntas, respostas e tools chamadas
+- [x] Tela `/chat` com layout de conversa (sidebar de histórico + painel de mensagens)
+- [x] Histórico de conversas por usuário (`chat_conversations`, `chat_messages`)
+- [x] Integração Vercel AI SDK + Google Gemini (gemini-1.5-flash)
+- [x] Tool: `getFinancialSummary` — total de vendas, compras e saldo por período
+- [x] Tool: `getTopProducts` — produtos mais vendidos/comprados
+- [x] Tool: `getTopParties` — maiores clientes e fornecedores
+- [x] Tool: `getDocuments` — busca de notas com filtros
+- [x] Tool: `getImportStats` — estatísticas de importação
+- [x] Tools filtradas por `user_id` (sem SQL livre)
+- [x] Streaming de resposta via `pipeDataStreamToResponse` (SSE)
+- [x] Sugestões de perguntas na tela vazia
+- [x] Nova conversa, listar e deletar conversas
+- [x] Renderização de Markdown nas respostas do assistente
+- [x] Testes unitários backend (Vitest) para rotas de chat
+- [x] Testes E2E (Playwright) para tela de chat
 
 **Critério de pronto:** perguntas como "quanto vendi este mês?" respondidas com dados reais do usuário.
 
@@ -127,4 +129,4 @@ Controle de progresso do desenvolvimento. Marcar cada item ao concluir.
 Fase 0 → Fase 1 → Fase 2 → Fase 3 → Fase 4 → Fase 4.5 → Fase 5
 ```
 
-**Fase atual:** Fase 3 — Chatbot Gerencial
+**Fase atual:** Fase 4 — Relatórios e Margem

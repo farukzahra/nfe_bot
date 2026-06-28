@@ -14,6 +14,7 @@
     "db:push": "prisma db push"
   },
   "dependencies": {
+    "@ai-sdk/google": "^4.0.2",
     "@fastify/cors": "^11.0.1",
     "@fastify/helmet": "^13.0.1",
     "@fastify/jwt": "^9.1.0",
@@ -21,6 +22,7 @@
     "@fastify/rate-limit": "^10.2.2",
     "@prisma/client": "^6.8.2",
     "adm-zip": "^0.5.17",
+    "ai": "^7.0.4",
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.5.0",
     "fast-xml-parser": "^5.9.3",

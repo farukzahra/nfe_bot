@@ -91,11 +91,11 @@ watch(
       <v-table density="comfortable" class="changelog-table">
         <thead>
           <tr>
+            <th class="col-date">Data / Hora</th>
             <th class="col-hash">Hash</th>
             <th class="col-type">Tipo</th>
             <th class="col-scope">Scope</th>
             <th class="col-message">Mensagem</th>
-            <th class="col-date">Data / Hora</th>
           </tr>
         </thead>
         <tbody>
@@ -104,6 +104,10 @@ watch(
             :key="commit.hash"
             class="changelog-row"
           >
+            <td class="col-date">
+              <div class="text-caption font-weight-medium">{{ formatDate(commit.date).date }}</div>
+              <div class="text-caption text-medium-emphasis">{{ formatDate(commit.date).time }}</div>
+            </td>
             <td class="col-hash">
               <code class="hash-code">{{ commit.hash }}</code>
             </td>
@@ -122,10 +126,6 @@ watch(
             </td>
             <td class="col-message">
               <span class="text-body-2">{{ commit.message }}</span>
-            </td>
-            <td class="col-date">
-              <div class="text-caption font-weight-medium">{{ formatDate(commit.date).date }}</div>
-              <div class="text-caption text-medium-emphasis">{{ formatDate(commit.date).time }}</div>
             </td>
           </tr>
         </tbody>

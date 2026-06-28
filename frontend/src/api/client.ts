@@ -96,6 +96,19 @@ export const api = {
   getError: (id: string) => request<ImportErrorDetail>(`/errors/${id}`),
 
   reprocessError: (id: string) => request<ImportBatchResult>(`/errors/${id}/reprocess`, { method: 'POST' }),
+
+  listConversations: () => request<Conversation[]>('/chat/conversations'),
+
+  getConversationMessages: (id: string) => request<ChatMessage[]>(`/chat/conversations/${id}/messages`),
+
+  deleteConversation: async (id: string): Promise<void> => {
+    const token = localStorage.getItem('token')
+    const response = await fetch(`${API_URL}/chat/conversations/${id}`, {
+      method: 'DELETE',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
+    if (!response.ok) throw new Error('Delete failed')
+  },
 }
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -232,4 +245,20 @@ export interface ErrorListResponse {
   limit: number
   pages: number
   errors: ImportErrorDetail[]
+}
+
+export interface Conversation {
+  id: string
+  title: string | null
+  createdAt: string
+  updatedAt: string
+  _count: { messages: number }
+}
+
+export interface ChatMessage {
+  id: string
+  conversationId: string
+  role: 'user' | 'assistant'
+  content: string
+  createdAt: string
 }
