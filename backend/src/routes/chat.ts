@@ -69,7 +69,7 @@ export const chatRoutes: FastifyPluginAsync = async (app) => {
     const tools = createChatTools(userId, app.prisma)
 
     const result = streamText({
-      model: google('gemini-2.0-flash'),
+      model: google('gemini-2.5-flash'),
       system: SYSTEM_PROMPT,
       messages: messages.map((m) => ({ role: m.role, content: m.content })),
       tools,
@@ -81,10 +81,23 @@ export const chatRoutes: FastifyPluginAsync = async (app) => {
       },
     })
 
-    // Return conversation ID in header so frontend can track new conversations
+    // Stream manually — compatible with all AI SDK versions
+    reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8')
+    reply.raw.setHeader('Transfer-Encoding', 'chunked')
+    reply.raw.setHeader('Cache-Control', 'no-cache')
     reply.raw.setHeader('X-Conversation-Id', convId)
     reply.hijack()
-    result.pipeDataStreamToResponse(reply.raw)
+
+    try {
+      for await (const chunk of result.textStream) {
+        reply.raw.write(`0:${JSON.stringify(chunk)}\n`)
+      }
+    } catch (err) {
+      app.log.error(err, 'chat stream error')
+    } finally {
+      reply.raw.write('d:{}\n')
+      reply.raw.end()
+    }
   })
 
   // ─── Conversations ─────────────────────────────────────────────────────────
